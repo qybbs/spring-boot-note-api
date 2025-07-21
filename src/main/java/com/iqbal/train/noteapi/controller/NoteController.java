@@ -3,9 +3,8 @@ package com.iqbal.train.noteapi.controller;
 import com.iqbal.train.noteapi.dto.NoteRequestDto;
 import com.iqbal.train.noteapi.dto.NoteResponseDto;
 import com.iqbal.train.noteapi.mapper.NoteMapper;
-import com.iqbal.train.noteapi.model.Note;
 import com.iqbal.train.noteapi.service.NoteService;
-import org.aspectj.weaver.ast.Not;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,12 +33,12 @@ public class NoteController {
     }
 
     @PostMapping
-    public NoteResponseDto createNote(@RequestBody NoteRequestDto requestDto) {
+    public NoteResponseDto createNote(@Valid  @RequestBody NoteRequestDto requestDto) {
         return NoteMapper.toDto(noteService.createNote(NoteMapper.toEntity(requestDto)));
     }
 
     @PutMapping("/{id}")
-    public NoteResponseDto updateNote(@PathVariable Long id, @RequestBody NoteRequestDto note) {
+    public NoteResponseDto updateNote(@Valid @PathVariable Long id, @RequestBody NoteRequestDto note) {
         return NoteMapper.toDto(noteService.updateNote(id, NoteMapper.toEntity(note)));
     }
 
